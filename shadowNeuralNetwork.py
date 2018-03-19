@@ -3,12 +3,12 @@ import matplotlib.pyplot as plt
 from testCases_v2 import *
 from planar_utils import plot_decision_boundary, sigmoid, load_planar_dataset, load_extra_datasets
 
-np.random.seed(1)
+#np.random.seed(1)
 
-X, Y = load_planar_dataset()
+#X, Y = load_planar_dataset()
 
-shape_X = X.shape
-shape_Y = X.shape
+#shape_X = X.shape
+#shape_Y = X.shape
 #m = shape_X[1]
 
 
@@ -21,9 +21,7 @@ def layer_sizes(X, Y):
     Returns:
     n_x -- the size of the input layer
     n_h -- the size of the hidden layer
-    n_y -- the size of the output layer*
-
-    
+    n_y -- the size of the output layer
     """
 
     n_x = X.shape[0]  # size of input layer
@@ -42,8 +40,8 @@ def initialize_parameters(n_x, n_h, n_y):
                     b2 -- bias vector of shape (n_y, 1)
     '''
 
-    W1 = np.random.randn(n_h, n_x)
-    W2 = np.random.randn(n_y, n_h)
+    W1 = np.random.randn(n_h, n_x)*0.01
+    W2 = np.random.randn(n_y, n_h)*0.01
     b1 = np.zeros([n_h, 1])
     b2 = np.zeros([n_y, 1])
 
@@ -126,12 +124,12 @@ def backward_propagation(parameters, cache, X, Y):
     W2 = parameters["W2"]
 
     dZ2 = A2 - Y
-    dW2 = np.dot( dZ2, A1.T) / m
-    db2 = 1/m * (np.sum(dZ2, axis=1, keepdims=True))
+    dW2 = np.dot(dZ2, A1.T) / m
+    db2 = 1 / m * (np.sum(dZ2, axis=1, keepdims=True))
 
-    dZ1 = np.multiply( np.dot( W2.T, dZ2), (1 - np.power(A1, 2) ) )
-    dW1 = np.dot( dZ1, X.T) /m
-    db1 = (1/m) * np.sum(dZ1, axis=1, keepdims=True)
+    dZ1 = np.multiply(np.dot(W2.T, dZ2), (1 - np.power(A1, 2)))
+    dW1 = np.dot(dZ1, X.T) / m
+    db1 = (1 / m) * np.sum(dZ1, axis=1, keepdims=True)
 
     grads = {
         "dZ2": dZ2,
@@ -145,7 +143,86 @@ def backward_propagation(parameters, cache, X, Y):
     return grads
 
 def update_parameters(parameters, grads, learning_rate = 1.2):
-    W1 =
+    """
+     Updates parameters using the gradient descent update rule given above
+
+     Arguments:
+     parameters -- python dictionary containing your parameters
+     grads -- python dictionary containing your gradients
+
+     Returns:
+     parameters -- python dictionary containing your updated parameters
+     """
+    W1 = parameters["W1"]
+    b1 = parameters["b1"]
+    W2 = parameters["W2"]
+    b2 = parameters["b2"]
+
+    W1 = W1 - learning_rate * grads["dW1"]
+    b1 = b1 - learning_rate * grads["db1"]
+    W2 = W2 - learning_rate * grads["dW2"]
+    b2 = b2 - learning_rate * grads["db2"]
+
+    params = {"W1": W1, "W2": W2, "b1": b1, "b2": b2}
+
+    return params
+
+def nn_model(X, Y, n_h, num_iterations = 10, print_cost=False):
+    np.random.seed(3)
+    n_x = layer_sizes(X, Y)[0]
+    n_y = layer_sizes(X, Y)[2]
+
+    parameters = initialize_parameters(n_x, n_h, n_y)
+
+    for i in range(0, num_iterations):
+        A2, cache = forward_propagation(X, parameters)
+        cost = compute_cost(A2, Y, parameters)
+        grads = backward_propagation(parameters, cache, X, Y)
+        parameters = update_parameters(parameters, grads)
+
+        if print_cost and i % 1000 == 0:
+            print("Cost after iteration %i: %f" % (i, cost))
+
+    return parameters
+
+
+def predict(parameters, X):
+    """
+    Using the learned parameters, predicts a class for each example in X
+
+    Arguments:
+    parameters -- python dictionary containing your parameters
+    X -- input data of size (n_x, m)
+
+    Returns
+    predictions -- vector of predictions of our model (red: 0 / blue: 1)
+    """
+
+    A2, cache = forward_propagation(X, parameters)
+    predictions = A2 > 0.5
+
+    return predictions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
