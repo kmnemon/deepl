@@ -105,7 +105,69 @@ def linear_activation_forward(A_prev, W, b, activation):
     Z, linear_cache = linear_forward(A_prev, W, b)
 
     if(activation == "relu"):
+        A, activation_cache = relu(Z)
+    elif (activation == "sigmoid"):
+        A, activation_cache = sigmoid(Z)
 
-    else if (activation == "sigmoid")
+    cache = (linear_cache, activation_cache)
+
+    return A, cache
+
+
+def L_model_forward(X, parameters):
+    """
+    Implement forward propagation for the [LINEAR->RELU]*(L-1)->LINEAR->SIGMOID computation
+
+    Arguments:
+    X -- data, numpy array of shape (input size, number of examples)
+    parameters -- output of initialize_parameters_deep()
+
+    Returns:
+    AL -- last post-activation value
+    caches -- list of caches containing:
+                every cache of linear_activation_forward() (there are L-1 of them, indexed from 0 to L-1)
+    """
+
+    caches = []
+    A = X
+    L = len(parameters) // 2 #means parameters = L-1
+
+    for i in range(1, L):
+        A_prev = A
+        A, cache = linear_activation_forward(A_prev, parameters["W" + str(i)], parameters["b" + str(i)], "relu")
+        caches.append(cache)
+
+    AL, cache = linear_activation_forward(A, parameters["W" + str(L)], parameters["b" + str(L)], "sigmoid")
+    caches.append(cache)
+
+    return AL, caches
+
+
+def compute_cost(AL, Y):
+    """
+    Implement the cost function defined by equation (7).
+
+    Arguments:
+    AL -- probability vector corresponding to your label predictions, shape (1, number of examples)
+    Y -- true "label" vector (for example: containing 0 if non-cat, 1 if cat), shape (1, number of examples)
+
+    Returns:
+    cost -- cross-entropy cost
+    """
+    L1 = np.dot(Y, np.log(AL).T)
+    L2 = np.dot((1-Y), np.log(1-AL).T)
+
+    m = Y.shape[1]
+    cost = (-1/m) *(L1 + L2)
+    cost = np.squeeze(cost)
+
+    return cost
+
+
+
+
+
+
+
 
 
