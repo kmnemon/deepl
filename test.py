@@ -1,6 +1,6 @@
 import numpy as np
 
 
-for i in range(10):
+x =lambda : 3 > 2
 
-    print(i)
+print(x())

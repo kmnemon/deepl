@@ -323,3 +323,6 @@ def predict(X, y, parameters):
     print("Accuracy: " + str(np.sum((p == y) / m)))
 
     return p
+
+
+
