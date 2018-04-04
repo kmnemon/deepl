@@ -32,13 +32,15 @@ def model(X, Y, learning_rate = 0.01, num_iterations = 1, print_cost = True, ini
     Returns:
     parameters -- parameters learnt by the model
     """
+    layer_dims
+
 
     if initialization == "he":
-        W, b = initialization()
+        parameters= initialization(layer_dims,  )
     elif initialization == "zeros":
-        W, b = initializtion()
+        parameters = initializtion()
     elif intialization == "random":
-        W, b = initializtion()
+        parameters = initializtion()
     else:
         assert( 1 == False)
 
