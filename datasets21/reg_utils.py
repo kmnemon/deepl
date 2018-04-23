@@ -325,7 +325,7 @@ def plot_decision_boundary(model, X, y):
     plt.show()
     
 def load_2D_dataset():
-    data = scipy.io.loadmat('datasets/data.mat')
+    data = scipy.io.loadmat('datasets21/data.mat')
     train_X = data['X'].T
     train_Y = data['y'].T
     test_X = data['Xval'].T
