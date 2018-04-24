@@ -11,5 +11,4 @@ import scipy.io
 #plt.rcParams['image.interpolation'] = 'nearest'
 #plt.rcParams['image.cmap'] = 'gray'
 
-#train_X, train_Y, test_X, test_Y = load_2D_dataset()
-load_2D_dataset()
+train_X, train_Y, test_X, test_Y = load_2D_dataset()
