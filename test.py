@@ -1,21 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib
-x = np.linspace(0, 1, 1000000)
 
-plt.xlim((0, 1))
-plt.ylim((-10, 10))
-
-y1 = -np.log(x)   #1
-y2 = -np.log(1-x)  #0
+W1 = [[1,2,3],
+      [4,5,6]
+      ]
 
 
-plt.plot(x, y1)
-plt.plot(x, y2)
-plt.ylabel('lose')
-plt.xlabel('y hat')
-plt.title("Lose function")
-plt.show()
+a = np.sum(np.square(W1))
 
-
-#print(-np.log(0.00000001))
+print(a)
