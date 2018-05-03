@@ -1,11 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-W1 = np.array([[1,2,3],
-      [4,5,6]
+dA2 = np.array([[1,-2,3],
+      [4,-5,6]
       ])
 
 
-W2 = np.random.rand(W1.shape[0], W1.shape[1])
 
-print(W2.shape)
+dA3 = np.multiply(dA2, np.int64(dA2 > 0))
+
+
+
+print(dA3)

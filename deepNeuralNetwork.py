@@ -244,7 +244,7 @@ def L_model_backward(AL, Y, caches):
     grads = {}
     L = len(caches) # the number of layers
     m = AL.shape[1]
-    Y = Y.reshape(AL.shape) # after this line, Y is the same shape as AL
+     # after this line, Y is the same shape as AL
 
     # Initializing the backpropagation
     dAL = - (np.divide(Y, AL) - np.divide(1 - Y, 1 - AL))
