@@ -1,13 +1,4 @@
-import time
-import numpy as np
-import h5py
-import matplotlib.pyplot as plt
-import scipy
-from PIL import Image
-from scipy import ndimage
-from deepNeuralNetwork import *
-from dnn_utils_v2 import load_data
-
+from base.deepNeuralNetwork import *
 
 np.random.seed(1)
 '''

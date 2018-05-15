@@ -7,8 +7,8 @@ dA2 = np.array([[1,-2,3],
 
 
 
-dA3 = np.multiply(dA2, np.int64(dA2 > 0))
 
 
 
-print(dA3)
+
+print(dA2.shape[0])
