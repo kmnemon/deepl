@@ -1,4 +1,5 @@
 import numpy as np
+from datasets21.reg_utils import *
 
 def compute_cost_with_regularization_test_case():
     np.random.seed(1)
@@ -78,6 +79,30 @@ def backward_propagation_with_dropout_test_case():
            [-0.39675353]]), np.array([[-0.7415562 , -0.0126646 , -5.65469333, -0.0126646 , -0.7415562 ]]), np.array([[ 0.32266394,  0.49683389,  0.00348883,  0.49683389,  0.32266394]]), np.array([[-0.6871727 , -0.84520564, -0.67124613]]), np.array([[-0.0126646]]))
 
 
-    return X_assess, Y_assess, cache
+    return X_assess, Y_assess,
+
+def gradient_check_n_test_case():
+    '''
+       :return: parameters -- python dictionary containing your parameters "W1", "b1", "W2", "b2", "W3", "b3":
+                    W1 -- weight matrix of shape (5, 4)
+                    b1 -- bias vector of shape (5, 1)
+                    W2 -- weight matrix of shape (3, 5)
+                    b2 -- bias vector of shape (3, 1)
+                    W3 -- weight matrix of shape (1, 3)
+                    b3 -- bias vector of shape (1, 1)
+
+                    W1 -- weight matrix of shape (layer_dims[l], layer_dims[l-1])
+                    b1 -- bias vector of shape (layer_dims[l], 1)
+                    Wl -- weight matrix of shape (layer_dims[l-1], layer_dims[l])
+                    bl -- bias vector of shape (1, layer_dims[l])
+    '''
+
+    np.random.seed(1)
+    X_assess = np.random.randn(4, 5)
+    Y_assess = np.array([[1, 1, 0, 1, 0]])
+
+    layer_dims = [4,5,3,1]
+    parameters = initialize_parameters(layer_dims)
 
 
+    return X_assess, Y_assess, parameters

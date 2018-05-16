@@ -191,7 +191,7 @@ def gradient_check_n(parameters, gradients, X, Y, epsilon = 1e-7):
         # Compute J_plus[i]. Inputs: "parameters_values, epsilon". Output = "J_plus[i]".
         # "_" is used because the function you have to outputs two parameters but we only care about the first one
         theta_plus = np.copy(parameters_values)
-        theta_plus[i][0] = thetaplus[i][0] + epsilon
+        theta_plus[i][0] = theta_plus[i][0] + epsilon
         J_plus[i], _ = forward_propagation_n(X, Y, vector_to_dictionary(theta_plus))
 
         # Compute J_minus[i]. Inputs: "parameters_values, epsilon". Output = "J_minus[i]".
@@ -220,8 +220,8 @@ def gradient_check_n(parameters, gradients, X, Y, epsilon = 1e-7):
 X, Y, parameters = gradient_check_n_test_case()
 
 cost, cache = forward_propagation_n(X, Y, parameters)
-#gradients = backward_propagation_n(X, Y, cache)
-#difference = gradient_check_n(parameters, gradients, X, Y)
+gradients = backward_propagation_n(X, Y, cache)
+difference = gradient_check_n(parameters, gradients, X, Y)
 
 
 
