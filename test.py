@@ -1,14 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-dA2 = np.array([[1,-2,3],
-      [4,-5,6]
-      ])
+
+a = {'a':1, 'b':2}
+l = len(a)
+
+for i in range(l):
+      print(i)
+print(l)
 
 
 
 
-
-
-
-print(dA2.shape[0])
