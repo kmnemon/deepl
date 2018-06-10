@@ -1,4 +1,4 @@
-import numpy as np
+ import numpy as np
 import h5py
 import matplotlib.pyplot as plt
 from testCases_v4 import *
@@ -251,7 +251,7 @@ def L_model_backward(AL, Y, caches):
 
     # Lth layer (SIGMOID -> LINEAR) gradients. Inputs: "dAL, current_cache". Outputs: "grads["dAL-1"], grads["dWL"], grads["dbL"]
     current_cache = caches[L-1]
-    grads["dA" + str(L - 1)], grads["dW" + str(L)], grads["db" + str(L)] = linear_activation_backward(dAL, current_cache, "sigmoid")
+    grads["dA" + str(L - 1)], grads["dW" + str(L)], grads["db" + str(L)] =  (dAL, current_cache, "sigmoid")
 
     # Loop from l=L-2 to l=0
     for l in reversed(range(L - 1)):
