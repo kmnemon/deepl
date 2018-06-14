@@ -2,6 +2,8 @@ import math
 import numpy as np
 import h5py
 import matplotlib.pyplot as plt
+import tensorflow as tf
+
 
 def load_dataset():
     train_dataset = h5py.File('datasets/train_signs.h5', "r")
@@ -91,3 +93,5 @@ def predict(X, parameters):
     prediction = sess.run(p, feed_dict = {x: X})
 
     return prediction
+
+

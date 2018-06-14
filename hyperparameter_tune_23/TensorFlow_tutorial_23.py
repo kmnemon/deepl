@@ -88,7 +88,6 @@ def sigmoid(z):
 
 
 
-
 # GRADED FUNCTION: cost
 def cost(logits, labels):
     """
@@ -104,6 +103,90 @@ def cost(logits, labels):
     Returns:
     cost -- runs the session of the cost (formula (2))
     """
+
+    z = tf.placeholder(tf.float32, name = 'z')
+    y = tf.placeholder(tf.float32, name = 'y')
+    cost = tf.nn.sigmoid_cross_entropy_with_logits(logits = z, labels = y)
+
+    sess = tf.Session()
+    cost = sess.run(cost, feed_dict={z:logits, y:labels})
+    sess.close()
+
+    return cost
+
+
+
+#one hot
+def one_hot_matrix(labels, C):
+    """
+    Creates a matrix where the i-th row corresponds to the ith class number and the jth column
+                     corresponds to the jth training example. So if example j had a label i. Then entry (i,j)
+                     will be 1.
+
+    Arguments:
+    labels -- vector containing the labels
+    C -- number of classes, the depth of the one hot dimension
+
+    Returns:
+    one_hot -- one hot matrix
+    """
+    # Create a tf.constant equal to C (depth), name it 'C'. (approx. 1 line)
+    C = tf.constant(value=C, name="C")
+
+    # Use tf.one_hot, be careful with the axis (approx. 1 line)
+    #if axis = -1 (m, c), else axis = 0 (c, m)
+    one_hot_matrix = tf.one_hot(labels, C, axis=0)
+
+    # Create the session (approx. 1 line)
+    sess = tf.Session()
+    one_hot = sess.run(one_hot_matrix)
+    sess.close()
+
+    return one_hot
+
+#initial ones
+def ones(shape):
+    """
+    Creates an array of ones of dimension shape
+
+    Arguments:
+    shape -- shape of the array you want to create
+
+    Returns:
+    ones -- array containing only ones
+    """
+
+    one_shape = tf.ones(shape)
+
+    sess = tf.Session()
+    one_shape = sess.run(one_shape)
+    sess.close()
+
+    return one_shape
+
+
+#initial zeros
+def zeros(shape):
+    """
+    Creates an array of ones of dimension shape
+
+    Arguments:
+    shape -- shape of the array you want to create
+
+    Returns:
+    ones -- array containing only ones
+    """
+
+    zero_shape = tf.ones(shape)
+
+    sess = tf.Session()
+    zero_shape = sess.run(zero_shape)
+    sess.close()
+
+    return zero_shape
+
+
+
 
 
 
