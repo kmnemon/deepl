@@ -41,7 +41,8 @@ def zero_pad(X, pad):
     """
 
     ### START CODE HERE ### (≈ 1 line)
-    X_pad = np.pad(X, ((0,0), (1,1), (0,0), (3,3), (0,0)), 'constant', constant_values = (0,0))
+  #  X_pad = np.pad(X, ((0,0), (1,1), (0,0), (3,3), (0,0)), 'constant', constant_values = (0,0))
+    X_pad = np.pad(X, ((0, 0), (1, 1)), 'constant', constant_values=(0, 0))
     ### END CODE HERE ###
 
     return X_pad
@@ -61,7 +62,7 @@ a = np.array(
 ]
 )
 '''
-a = np.random.randn( 2, 2, 2, 2 , 2 )
+a = np.random.randn( 2, 2)
 
 
 
