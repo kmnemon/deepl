@@ -150,26 +150,61 @@ def pool_forward(A_prev, hparameters, mode="max"):
     n_C = n_C_prev
 
     f = hparameters['f']
-    stride = hparameters['stride']
+    s = hparameters['stride']
 
     #output size
-    n_H = int( (n_H_prev - f) / stride ) + 1
-    n_W = int( (n_W_prev - f) / stride ) + 1
+    n_H = int( (n_H_prev - f) / s ) + 1
+    n_W = int( (n_W_prev - f) / s ) + 1
 
     # Initialize output matrix A
     A = np.zeros((m, n_H, n_W, n_C))
 
+
     for i in range(m):
         a_prev = A_prev[i]
-        for h in range(n_H):
-            for w in range(n_W):
-                vert_start = s * h
-                vert_end = vert_start + f
-                horiz_start = s * w
-                horiz_end = horiz_start + f
-                a_slice_prev = a_prev[vert_start:vert_end, horiz_start:horiz_end, :]
+        for c in range(n_C):
+            for h in range(n_H):
+                for w in range(n_W):
+                    vert_start = s * h
+                    vert_end = vert_start + f
+                    horiz_start = s * w
+                    horiz_end = horiz_start + f
 
-                if mode == 'max':
+                    a_slice_prev = a_prev[vert_start:vert_end, horiz_start:horiz_end, c]
+
+                    if mode == 'max':
+                        A[i, h, w, c] = np.max(a_slice_prev)
+                    elif mode == 'average':
+                        A[i, h, w, c] = np.mean(a_slice_prev)
+
+    # Store the input and hparameters in "cache" for pool_backward()
+    cache = (A_prev, hparameters)
+
+    # Making sure your output shape is correct
+    assert (A.shape == (m, n_H, n_W, n_C))
+
+    return A, cache
+
+
+
+np.random.seed(1)
+A_prev = np.random.randn(2, 4, 4, 3)
+hparameters = {"stride" : 2, "f": 3}
+
+A, cache = pool_forward(A_prev, hparameters)
+print("mode = max")
+print("A =", A)
+print()
+A, cache = pool_forward(A_prev, hparameters, mode = "average")
+print("mode = average")
+print("A =", A)
+
+
+
+
+
+
+
 
 
 
