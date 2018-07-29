@@ -207,13 +207,13 @@ def model(data, ix_to_char, char_to_ix, num_iterations=35000, n_a=50, dino_names
         ### START CODE HERE ###
 
         # Use the hint above to define one training example (X,Y) (≈ 2 lines)
-        index = None
-        X = None
-        Y = None
+        index = j % len(examples)
+        X = [None] + [char_to_ix[ch] for ch in examples[index]]
+        Y = X[1:] + [char_to_ix["\n"]]
 
         # Perform one optimization step: Forward-prop -> Backward-prop -> Clip -> Update parameters
         # Choose a learning rate of 0.01
-        curr_loss, gradients, a_prev = None
+        curr_loss, gradients, a_prev = optimize(X, Y, a_prev, parameters, learning_rate=0.01)
 
         ### END CODE HERE ###
 
@@ -237,3 +237,7 @@ def model(data, ix_to_char, char_to_ix, num_iterations=35000, n_a=50, dino_names
             print('\n')
 
     return parameters
+
+
+
+parameters = model(data, ix_to_char, char_to_ix)
