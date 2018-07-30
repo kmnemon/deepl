@@ -163,7 +163,7 @@ def optimize(X, Y, a_prev, parameters, learning_rate=0.01):
 
 # GRADED FUNCTION: model
 
-def model(data, ix_to_char, char_to_ix, num_iterations=35000, n_a=50, dino_names=7, vocab_size=27):
+def model(data, ix_to_char, char_to_ix, num_iterations=2, n_a=50, dino_names=7, vocab_size=27):
     """
     Trains the model and generates dinosaur names.
 
